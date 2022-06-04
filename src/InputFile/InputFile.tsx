@@ -1,14 +1,16 @@
 import { useRef } from 'react';
 import styles from './InputFile.module.scss';
 
-function InputFile() {
+interface MyProps {
+    onSelectFile: (selectedSymbol: FileReader | null, fileName: string) => void
+}
+
+function InputFile(props: MyProps) {
     const imageUploadWrap = useRef<HTMLDivElement>(null);
     const fileUploadImage = useRef<HTMLImageElement>(null);
     const fileUploadContent = useRef<HTMLDivElement>(null);
     const imageTitle = useRef<HTMLSpanElement>(null);
     const fileUploadInput = useRef<HTMLInputElement>(null);
-
-
 
     const readURL = (input: any) => {
         const files = input.target.files;
@@ -21,10 +23,11 @@ function InputFile() {
                 fileUploadContent.current?.style.setProperty('display', 'block');
 
                 imageTitle.current!.innerHTML = files[0].name;
-                                
+                
             }
 
             reader.readAsDataURL(files[0]);
+            props.onSelectFile(reader, files[0]);
         } else {
             removeUpload();
         }

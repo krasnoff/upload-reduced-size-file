@@ -1,24 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import InputForm from './InputFile/InputFile';
+import './App.scss';
 
 function App() {
+  const selectSymbolHandler = (selectedSymbol: FileReader | null, fileName: string) => {
+    console.log('selectSymbolHandler', selectedSymbol);
+    console.log('fileName', fileName);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <form>
+        <div><InputForm onSelectFile={(selectedSymbol: FileReader | null, fileName: string) => selectSymbolHandler(selectedSymbol, fileName)}></InputForm></div>
+      </form>
     </div>
   );
 }
