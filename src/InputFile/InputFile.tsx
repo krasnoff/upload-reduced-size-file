@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import styles from './InputFile.module.scss';
 
 interface MyProps {
-    onSelectFile: (selectedSymbol: FileReader | null, fileName: string) => void
+    onSelectFile: (selectedSymbol: FileReader, fileName: string) => void
 }
 
 function InputFile(props: MyProps) {
