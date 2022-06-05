@@ -29,6 +29,7 @@ function App() {
   }
 
   const setStorageRef = () => {
+    // you have to manually add values for REACT_APP_API_KEY and REACT_APP_SERVER_BASE_URL in an .env file
     const firebaseConfig = {
       apiKey: process.env.REACT_APP_API_KEY,
       storageBucket: process.env.REACT_APP_SERVER_BASE_URL
