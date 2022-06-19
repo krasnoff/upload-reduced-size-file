@@ -27,6 +27,7 @@ function InputFile(props: MyProps) {
             }
 
             reader.readAsDataURL(files[0]);
+            // TODO here add the reduce function
             props.onSelectFile(reader, files[0]);
         } else {
             removeUpload();
