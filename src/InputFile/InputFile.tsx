@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { useConvertToFileObject } from './hooks/ConvertToFileObject';
 import styles from './InputFile.module.scss';
 
 interface MyProps {
@@ -11,6 +12,8 @@ function InputFile(props: MyProps) {
     const fileUploadContent = useRef<HTMLDivElement>(null);
     const imageTitle = useRef<HTMLSpanElement>(null);
     const fileUploadInput = useRef<HTMLInputElement>(null);
+
+    const dataURLtoFile = useConvertToFileObject();
 
     const readURL = (input: any) => {
         const files = input.target.files;
@@ -28,6 +31,8 @@ function InputFile(props: MyProps) {
 
             reader.readAsDataURL(files[0]);
             // TODO here add the reduce function
+            console.log('dataURLtoFile.....', files)
+            // console.log('dataURLtoFile.....', dataURLtoFile())
             props.onSelectFile(reader, files[0]);
         } else {
             removeUpload();
