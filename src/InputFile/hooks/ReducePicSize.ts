@@ -3,6 +3,11 @@ export interface IResizeImageOptions {
     file: File;
 }
 
+// TODO
+// set parameter to stadn alone width and stand alone height
+// input file validation
+// handle file type png gif jfif and so forth
+
 export function useReducePicSize() {
     const dataURItoBlob = (dataURI: string) => {
         const bytes = dataURI.split(',')[0].indexOf('base64') >= 0 ?
@@ -59,5 +64,5 @@ export function useReducePicSize() {
         });
     }
 
-    return resizeImage;
+    return {resizeImage};
 }

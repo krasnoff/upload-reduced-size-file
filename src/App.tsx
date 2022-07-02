@@ -9,9 +9,9 @@ function App() {
   const [base64Str, setBase64Str] = useState<string>('');
   const [fileNamestr, setFilenamestr] = useState<string>('');
 
-  const selectSymbolHandler = (selectedSymbol: FileReader, fileName: string) => {
-    console.log('selectSymbolHandler', selectedSymbol);
-    console.log('fileName', fileName);
+  const selectSymbolHandler = (selectedSymbol: FileReader, fileName: File) => {
+    // console.log('selectSymbolHandler', selectedSymbol);
+    // console.log('fileName', fileName);
 
     selectedSymbol.onloadend = () => {
       setBase64Str(selectedSymbol?.result as string);
@@ -20,11 +20,12 @@ function App() {
   }
 
   const uploadPic = () => {
-    console.log('upload pic...', base64Str);
+    // console.log('upload pic...', base64Str);
     storageRef = setStorageRef();
 
     uploadString(storageRef, base64Str, 'data_url').then((snapshot) => {
-      console.log('Uploaded a base64url string!', snapshot);
+      // console.log('Uploaded a base64url string!', snapshot);
+      alert('file uploaded successfully')
     });
   }
 
@@ -43,7 +44,7 @@ function App() {
   return (
     <div className="App">
       {/* <form> */}
-        <div><InputForm onSelectFile={(selectedSymbol: FileReader, fileName: string) => selectSymbolHandler(selectedSymbol, fileName)}></InputForm></div>
+        <div><InputForm onSelectFile={(selectedSymbol: FileReader, fileName: File) => selectSymbolHandler(selectedSymbol, fileName)}></InputForm></div>
         <div className="centerDiv"><button onClick={() => uploadPic()}>Upload!</button></div>
       {/* </form> */}
     </div>

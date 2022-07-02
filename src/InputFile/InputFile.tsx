@@ -1,9 +1,9 @@
 import { useRef } from 'react';
-import { useConvertToFileObject } from './hooks/ConvertToFileObject';
+import { IResizeImageOptions, useReducePicSize } from './hooks/ReducePicSize';
 import styles from './InputFile.module.scss';
 
 interface MyProps {
-    onSelectFile: (selectedSymbol: FileReader, fileName: string) => void
+    onSelectFile: (selectedSymbol: FileReader, fileName: File) => void
 }
 
 function InputFile(props: MyProps) {
@@ -13,7 +13,17 @@ function InputFile(props: MyProps) {
     const imageTitle = useRef<HTMLSpanElement>(null);
     const fileUploadInput = useRef<HTMLInputElement>(null);
 
-    const dataURLtoFile = useConvertToFileObject();
+    const reduceSizePic = useReducePicSize();
+
+    const blobToFile = (theBlob: Blob, fileName:string): File => {
+        var b: any = theBlob;
+        //A Blob() is almost a File() - it's just missing the two properties below which we will add
+        b.lastModifiedDate = new Date();
+        b.name = fileName;
+    
+        //Cast to a File() type
+        return theBlob as File;
+    }
 
     const readURL = (input: any) => {
         const files = input.target.files;
@@ -30,10 +40,21 @@ function InputFile(props: MyProps) {
             }
 
             reader.readAsDataURL(files[0]);
-            // TODO here add the reduce function
-            console.log('dataURLtoFile.....', files)
-            // console.log('dataURLtoFile.....', dataURLtoFile())
-            props.onSelectFile(reader, files[0]);
+            
+            const param: IResizeImageOptions = {
+                maxSize: 1000,
+                file: files[0]
+            }
+            
+            reduceSizePic.resizeImage(param).then(res => {
+                const reader2 = new FileReader();
+                reader2.readAsDataURL(res);
+                const fileName = files[0].name.split('.')[0] + '.jpg';
+                const file2 = blobToFile(res, fileName);
+                props.onSelectFile(reader2, file2);
+            });
+
+            // props.onSelectFile(reader, files[0]);
         } else {
             removeUpload();
         }
