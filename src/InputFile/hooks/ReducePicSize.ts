@@ -1,6 +1,7 @@
 export interface IResizeImageOptions {
-    maxSize: number;
     file: File;
+    maxWidth: number;
+    maxHeight?: number | undefined;
 }
 
 // TODO
@@ -20,20 +21,27 @@ export function useReducePicSize() {
         return new Blob([ia], {type:mime});
     };
 
-    const resize = (image: HTMLImageElement, maxSize: number, canvas: HTMLCanvasElement) => {
+    const resize = (image: HTMLImageElement, maxWidth: number, canvas: HTMLCanvasElement, maxHeight?: number) => {
         let width = image.width;
         let height = image.height;
     
-        if (width > height) {
-            if (width > maxSize) {
-                height *= maxSize / width;
-                width = maxSize;
-            }
+        // if (width > height) {
+        //     if (width > maxSize) {
+        //         height *= maxSize / width;
+        //         width = maxSize;
+        //     }
+        // } else {
+        //     if (height > maxSize) {
+        //         width *= maxSize / height;
+        //         height = maxSize;
+        //     }
+        // }
+        if (!maxHeight) {
+            width = maxWidth > width ? width : maxWidth;
+            height = maxWidth > width ? height : maxWidth / width * height;
         } else {
-            if (height > maxSize) {
-                width *= maxSize / height;
-                height = maxSize;
-            }
+            width = maxWidth > width ? width : maxWidth;
+            height = maxHeight > height ? height : maxHeight;
         }
 
         canvas.width = width;
@@ -43,9 +51,10 @@ export function useReducePicSize() {
         return dataURItoBlob(dataUrl);
     };
     
-    const resizeImage = (settings: IResizeImageOptions): Promise<any> => {
+    const resizeImage = (settings: IResizeImageOptions): Promise<Blob> => {
         const file = settings.file;
-        const maxSize = settings.maxSize;
+        const maxWidth = settings.maxWidth;
+        const maxHeight = settings.maxHeight ? settings.maxHeight : undefined;
         const reader = new FileReader();
         const image = new Image();
         const canvas = document.createElement('canvas');
@@ -57,7 +66,7 @@ export function useReducePicSize() {
             }
       
             reader.onload = (readerEvent: any) => {
-              image.onload = () => ok(resize(image, maxSize, canvas));
+              image.onload = () => ok(resize(image, maxWidth, canvas, maxHeight));
               image.src = readerEvent.target.result;
             };
             reader.readAsDataURL(file);

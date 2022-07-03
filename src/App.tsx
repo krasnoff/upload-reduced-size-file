@@ -44,7 +44,7 @@ function App() {
   return (
     <div className="App">
       {/* <form> */}
-        <div><InputForm onSelectFile={(selectedSymbol: FileReader, fileName: File) => selectSymbolHandler(selectedSymbol, fileName)}></InputForm></div>
+        <div><InputForm onSelectFile={(selectedSymbol: FileReader, fileName: File) => selectSymbolHandler(selectedSymbol, fileName)} maxWidth={600}></InputForm></div>
         <div className="centerDiv"><button onClick={() => uploadPic()}>Upload!</button></div>
       {/* </form> */}
     </div>

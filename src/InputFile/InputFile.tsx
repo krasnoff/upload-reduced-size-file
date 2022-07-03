@@ -3,7 +3,9 @@ import { IResizeImageOptions, useReducePicSize } from './hooks/ReducePicSize';
 import styles from './InputFile.module.scss';
 
 interface MyProps {
-    onSelectFile: (selectedSymbol: FileReader, fileName: File) => void
+    onSelectFile: (selectedSymbol: FileReader, fileName: File) => void,
+    maxWidth: number,
+    maxHeight?: number
 }
 
 function InputFile(props: MyProps) {
@@ -42,8 +44,9 @@ function InputFile(props: MyProps) {
             reader.readAsDataURL(files[0]);
             
             const param: IResizeImageOptions = {
-                maxSize: 1000,
-                file: files[0]
+                maxWidth: props.maxWidth,
+                file: files[0],
+                maxHeight: props.maxHeight
             }
             
             reduceSizePic.resizeImage(param).then(res => {
