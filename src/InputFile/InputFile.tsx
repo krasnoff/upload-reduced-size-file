@@ -52,7 +52,7 @@ function InputFile(props: MyProps) {
             reduceSizePic.resizeImage(param).then(res => {
                 const reader2 = new FileReader();
                 reader2.readAsDataURL(res);
-                const fileName = files[0].name.split('.')[0] + '.jpg';
+                const fileName = files[0].name; // files[0].name.split('.')[0] + '.jpg';
                 const file2 = blobToFile(res, fileName);
                 props.onSelectFile(reader2, file2);
             });

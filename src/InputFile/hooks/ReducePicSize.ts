@@ -4,11 +4,6 @@ export interface IResizeImageOptions {
     maxHeight?: number | undefined;
 }
 
-// TODO
-// set parameter to stadn alone width and stand alone height
-// input file validation
-// handle file type png gif jfif and so forth
-
 export function useReducePicSize() {
     const dataURItoBlob = (dataURI: string) => {
         const bytes = dataURI.split(',')[0].indexOf('base64') >= 0 ?
@@ -20,6 +15,19 @@ export function useReducePicSize() {
         for (var i = 0; i < max; i++) ia[i] = bytes.charCodeAt(i);
         return new Blob([ia], {type:mime});
     };
+
+    const getFileType = (src: string) => {
+        if (src.indexOf('image/jpeg') > -1) {
+            return 'image/jpeg'
+        }
+        if (src.indexOf('image/png') > -1) {
+            return 'image/png'
+        }
+        if (src.indexOf('image/gif') > -1) {
+            return 'image/gif'
+        }
+        return undefined;
+    }
 
     const resize = (image: HTMLImageElement, maxWidth: number, canvas: HTMLCanvasElement, maxHeight?: number) => {
         let width = image.width;
@@ -47,7 +55,7 @@ export function useReducePicSize() {
         canvas.width = width;
         canvas.height = height;
         canvas?.getContext('2d')?.drawImage(image, 0, 0, width, height);
-        let dataUrl = canvas.toDataURL('image/jpeg');
+        let dataUrl = canvas.toDataURL(getFileType(image.src));
         return dataURItoBlob(dataUrl);
     };
     
