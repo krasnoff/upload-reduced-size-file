@@ -23,3 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 
 /.env
+
+/src/inputFile/node_modules
+/src/inputFile/dist

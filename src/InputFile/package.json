@@ -1,0 +1,32 @@
+{
+    "name": "uploadfilereducedsize",
+    "version": "0.9.0",
+    "description": "this is a reactJs component Which acts like an HTML input file that can reduce images to a desiered size before sending it to the server",
+    "main": "FramedVideo.tsx",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "clean": "rm -rf dist",
+      "build": "tsc && cp -r package.json README.md inputFile.module.scss hooks ./dist"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/krasnoff/upload-reduced-size-file.git"
+    },
+    "keywords": [
+      "reactjs",
+      "input",
+      "file",
+      "reduced",
+      "size"
+    ],
+    "author": "Kobi Krasnoff",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/krasnoff/upload-reduced-size-file/issues"
+    },
+    "homepage": "https://github.com/krasnoff/upload-reduced-size-file#readme",
+    "dependencies": {
+      "node-sass": "^7.0.1",
+      "react": "^18.1.0"
+    }
+  }
