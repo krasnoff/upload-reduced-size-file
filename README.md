@@ -1,12 +1,12 @@
 # Getting started with reducing the size file upload component #
 
-## Description ##
+### Description ###
 This is a React upload component that also reduces the image file size if necessary. the parameters of the element are:
 1. onSelectFile - select file handler
 2. maxWidth: maximum width of the reduced file image. It is measured in pixels. if the uploaded image width is smaller than the maximum file width then there won't be any file reduction.
 3. max-height: Optional. do the same thing but for height.
 
-## Install the Component ##
+### Install the Component ###
 In order to install this component simply execute the following command:
 ```
 npm i uploadfilereducedsize
