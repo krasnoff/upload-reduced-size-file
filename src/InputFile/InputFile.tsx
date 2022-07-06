@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { IResizeImageOptions, useReducePicSize } from './hooks/ReducePicSize';
-import styles from './InputFile.module.scss';
+import styles from './inputFile.module.scss';
 
 interface MyProps {
     onSelectFile: (selectedSymbol: FileReader, fileName: File) => void,

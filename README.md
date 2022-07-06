@@ -16,12 +16,18 @@ Here is how you implement the component in your react code
 
 ```
 import './App.css';
-import FramedVideo from 'videoframebyframe/FramedVideo';
+import InputForm from 'uploadfilereducedsize/InputFile';
 
 function App() {
+  const selectSymbolHandler = (selectedSymbol, fileName) => {
+    console.log('select...');    
+  }
+
   return (
     <div className="App">
-      <div className="videoContainer"><FramedVideo src="blender.mp4"></FramedVideo></div>
+      <div className="videoContainer">
+        <InputForm onSelectFile={(selectedSymbol, fileName) => selectSymbolHandler(selectedSymbol, fileName)} maxWidth={600}></InputForm>
+      </div>
     </div>
   );
 }
